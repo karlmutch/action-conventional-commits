@@ -24,4 +24,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: webiny/action-conventional-commits@v1.0.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
