@@ -191,8 +191,8 @@ const extractCommits = (context) => __awaiter(undefined, void 0, void 0, functio
                 pull_number: prNumber
             };
             console.log({ params });
-            const data = yield github.pulls.listCommits(params);
-            console.log({ data });
+            const { data } = yield github.pulls.listCommits(params);
+            console.log({ data: data });
             if (Array.isArray(data)) {
                 return data.map((item) => item.commit);
             }

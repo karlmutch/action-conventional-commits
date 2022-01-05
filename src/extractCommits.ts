@@ -29,8 +29,8 @@ const extractCommits = async (context): Promise<Commit[]> => {
                 pull_number: prNumber
             }
             console.log({params})
-            const data = await github.pulls.listCommits(params);
-            console.log({data})
+            const {data} = await github.pulls.listCommits(params);
+            console.log({data: data})
 
             if (Array.isArray(data)) {
                 return data.map((item) => item.commit);
