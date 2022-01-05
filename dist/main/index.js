@@ -171,16 +171,13 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 const extractCommits = (context) => __awaiter(undefined, void 0, void 0, function* () {
-    console.log({ context });
     // For "push" events, commits can be found in the "context.payload.commits".
     const pushCommits = Array.isArray(lodash_get_default()(context, "payload.commits"));
-    console.log({ pushCommits });
     if (pushCommits) {
         return context.payload.commits;
     }
     // For PRs, we need to get a list of commits via the GH API:
     const prNumber = lodash_get_default()(context, "payload.pull_request.number");
-    console.log({ prNumber });
     if (prNumber) {
         try {
             const token = Object(core.getInput)('github-token');
@@ -190,9 +187,7 @@ const extractCommits = (context) => __awaiter(undefined, void 0, void 0, functio
                 repo: context.repo.repo,
                 pull_number: prNumber
             };
-            console.log({ params });
             const { data } = yield github.pulls.listCommits(params);
-            console.log({ data: data });
             if (Array.isArray(data)) {
                 return data.map((item) => item.commit);
             }
