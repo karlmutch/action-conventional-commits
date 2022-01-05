@@ -6,7 +6,7 @@ import extractCommits from "./extractCommits";
 
 async function run() {
     core.info(
-        `ℹ️ Checking if commit messages are following the Conventional Commits specification (new)...`
+        `ℹ️ Checking if commit messages are following the Conventional Commits specification...`
     );
 
     const extractedCommits = await extractCommits(context);
