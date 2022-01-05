@@ -3,3 +3,7 @@ description: "Ensures that all commit messages are following the conventional-co
 runs:
   using: node12
   main: dist/main/index.js
+inputs:
+  github-token: 
+    required: true
+    description: Github token

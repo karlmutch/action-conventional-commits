@@ -1,5 +1,6 @@
 import get from "lodash.get";
-import got from "got";
+import {getOctokit} from '@actions/github'
+import {getInput} from '@actions/core'
 
 type Commit = {
     message: string;
@@ -13,15 +14,21 @@ const extractCommits = async (context): Promise<Commit[]> => {
     }
 
     // For PRs, we need to get a list of commits via the GH API:
-    const prCommitsUrl = get(context, "payload.pull_request.commits_url");
-    if (prCommitsUrl) {
+    const prNumber = get(context, "payload.pull_request.number");
+    if (prNumber) {
         try {
-            const { body } = await got.get(prCommitsUrl, {
-                responseType: "json",
-            });
+            const token = getInput('github-token')
+            const github = getOctokit(token).rest
 
-            if (Array.isArray(body)) {
-                return body.map((item) => item.commit);
+            const params = {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+            }
+            const {data} = await github.pulls.listCommits(params);
+
+            if (Array.isArray(data)) {
+                return data.map((item) => item.commit);
             }
             return [];
         } catch {
