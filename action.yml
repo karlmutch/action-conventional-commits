@@ -1,5 +1,9 @@
-name: "Conventional Commits"
+name: "Conventional Commits (dkhunt27)"
 description: "Ensures that all commit messages are following the conventional-commits standard."
 runs:
   using: node12
   main: dist/main/index.js
+inputs:
+  github-token: 
+    required: true
+    description: Github token
