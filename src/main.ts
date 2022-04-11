@@ -17,9 +17,7 @@ async function run() {
     
     const rawOverrideCommitTypes = core.getInput('valid-commit-types')
     const overrideCommitTypes = rawOverrideCommitTypes ? JSON.parse(rawOverrideCommitTypes) : undefined
-    core.info(`!valid-commit-types: ${JSON.stringify(overrideCommitTypes)}`);
     let hasErrors;
-    core.startGroup("Commit messages:");
     for (let i = 0; i < extractedCommits.length; i++) {
         let commit = extractedCommits[i];
         if (isValidCommitMessage(commit.message, overrideCommitTypes)) {
@@ -29,7 +27,6 @@ async function run() {
             hasErrors = true;
         }
     }
-    core.endGroup();
 
     if (hasErrors) {
         core.setFailed(
