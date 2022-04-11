@@ -5234,9 +5234,7 @@ function run() {
         }
         const rawOverrideCommitTypes = Object(core.getInput)('valid-commit-types');
         const overrideCommitTypes = rawOverrideCommitTypes ? JSON.parse(rawOverrideCommitTypes) : undefined;
-        Object(core.info)(`!valid-commit-types: ${JSON.stringify(overrideCommitTypes)}`);
         let hasErrors;
-        Object(core.startGroup)("Commit messages:");
         for (let i = 0; i < extractedCommits.length; i++) {
             let commit = extractedCommits[i];
             if (src_isValidCommitMessage(commit.message, overrideCommitTypes)) {
@@ -5247,7 +5245,6 @@ function run() {
                 hasErrors = true;
             }
         }
-        Object(core.endGroup)();
         if (hasErrors) {
             Object(core.setFailed)(`🚫 According to the conventional-commits specification, some of the commit messages are not valid.`);
         }
