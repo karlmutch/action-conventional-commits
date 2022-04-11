@@ -14,12 +14,13 @@ async function run() {
         core.info(`No commits to check, skipping...`);
         return;
     }
-
+    
+    const overrideCommitTypes = core.getInput('valid-commit-types')
     let hasErrors;
     core.startGroup("Commit messages:");
     for (let i = 0; i < extractedCommits.length; i++) {
         let commit = extractedCommits[i];
-        if (isValidCommitMessage(commit.message)) {
+        if (isValidCommitMessage(commit.message, overrideCommitTypes)) {
             core.info(`✅ ${commit.message}`);
         } else {
             core.info(`🚩 ${commit.message}`);
