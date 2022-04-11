@@ -7,3 +7,6 @@ inputs:
   github-token: 
     required: true
     description: Github token
+  valid-commit-types: 
+    required: false
+    description: List of valid commit types
