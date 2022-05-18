@@ -1,7 +1,7 @@
-import { context }  from "@actions/github";
+import { context } from "@actions/github";
 import * as core from "@actions/core";
 
-import isValidCommitMessage from "./isValidCommitMessage";
+import isValidCommitMessage, { getValidCommitTypes } from "./isValidCommitMessage";
 import extractCommits from "./extractCommits";
 
 async function run() {
@@ -14,7 +14,7 @@ async function run() {
         core.info(`No commits to check, skipping...`);
         return;
     }
-    
+
     const rawOverrideCommitTypes = core.getInput('valid-commit-types')
     const overrideCommitTypes = rawOverrideCommitTypes ? JSON.parse(rawOverrideCommitTypes) : undefined
     let hasErrors;
@@ -29,8 +29,10 @@ async function run() {
     }
 
     if (hasErrors) {
+        const validCommitTypesList = getValidCommitTypes(overrideCommitTypes).join(', ')
         core.setFailed(
-            `🚫 According to the conventional-commits specification, some of the commit messages are not valid.`
+            `🚫 According to the conventional-commits specification, some of the commit messages are not valid.
+            Accepted types: ${validCommitTypesList}.`
         );
     } else {
         core.info("🎉 All commit messages are following the Conventional Commits specification.");

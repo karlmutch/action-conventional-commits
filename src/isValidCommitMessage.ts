@@ -37,4 +37,8 @@ const isValidCommitMessage = (message, availableTypes = DEFAULT_COMMIT_TYPES): b
     return availableTypes.includes(possiblyValidCommitType);
 };
 
+export function getValidCommitTypes(availableTypes = DEFAULT_COMMIT_TYPES) {
+    return availableTypes;
+}
+
 export default isValidCommitMessage;
