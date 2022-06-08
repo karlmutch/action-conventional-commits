@@ -32,7 +32,8 @@ async function run() {
         const validCommitTypesList = getValidCommitTypes(overrideCommitTypes).join(', ')
         core.setFailed(
             `🚫 According to the conventional-commits specification, some of the commit messages are not valid.
-            Accepted types: ${validCommitTypesList}.`
+            Accepted types: ${validCommitTypesList}.
+            Try using the client side githook using, "git config --local core.hooksPath .githooks"`
         );
     } else {
         core.info("🎉 All commit messages are following the Conventional Commits specification.");
